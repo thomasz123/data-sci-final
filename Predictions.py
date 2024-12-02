@@ -25,73 +25,73 @@ with tab1:
     df_logistic = df
     df_logistic['Injury'] = df_logistic['Injury Severity'].apply(lambda x: 0 if x == 1 else 1)
     
-    # df_logistic2 = df_logistic.drop(["precipitation", "precip"], axis = 1)
+    df_logistic2 = df_logistic.drop(["day of the week", "date", "time", "Report Number", "Circumstance"], axis = 1)
 
-    st.dataframe(df_logistic)
+    # st.dataframe(df_logistic)
 
-    # columns = df_logistic2.columns
-    # loginput = st.multiselect("Select variables:",columns,["dew"])
+    columns = df_logistic2.columns
+    loginput = st.multiselect("Select variables:",columns,["Weather"])
 
-    # df_logistic2 = df_logistic[input]
+    df_logistic2 = df_logistic[loginput]
     
     # #st.pyplot create a countplot to count the number of rainy and non rainy days
 
-    # Xlog = df_logistic2
-    # ylog = df_logistic["precipitation"]
+    Xlog = df_logistic2
+    ylog = df_logistic["Injury"]
 
-    # Xlog_train, Xlog_test, ylog_train, ylog_test = train_test_split(Xlog,ylog,test_size = 0.2)
+    Xlog_train, Xlog_test, ylog_train, ylog_test = train_test_split(Xlog,ylog,test_size = 0.2)
 
     # scaler = StandardScaler()
     # X_train_scaled = scaler.fit_transform(Xlog_train)
     # X_test_scaled = scaler.transform(Xlog_test)
 
-    # logmodel = LogisticRegression()
-    # logmodel.fit(X_train_scaled, ylog_train)
-    # logprediction = logmodel.predict(X_test_scaled)
+    logmodel = LogisticRegression()
+    logmodel.fit(Xlog_train, ylog_train)
+    logprediction = logmodel.predict(Xlog_test)
     
 
     # # Create confusion matrix for plotting the comparison between true labels and predictions
-    # cm = confusion_matrix(ylog_test, logprediction)
+    cm = confusion_matrix(ylog_test, logprediction)
     
-    # fig, ax = plt.subplots(figsize = (10,6))
-    # sns.heatmap(pd.DataFrame(cm), annot = True, cmap = "YlGnBu")
-    # plt.title("Confusion matrix",fontsize=25)
-    # plt.xlabel("Predicted",fontsize=18)
-    # plt.ylabel("Actual", fontsize=18)
-    # plt.scatter(x=ylog_test,y=logprediction)
-    # st.pyplot(fig)
+    fig, ax = plt.subplots(figsize = (10,6))
+    sns.heatmap(pd.DataFrame(cm), annot = True, cmap = "YlGnBu")
+    plt.title("Confusion matrix",fontsize=25)
+    plt.xlabel("Predicted",fontsize=18)
+    plt.ylabel("Actual", fontsize=18)
+    plt.scatter(x=ylog_test,y=logprediction)
+    st.pyplot(fig)
 
-    # st.write("Accuracy:", accuracy_score(ylog_test, logprediction) * 100, "%")
+    st.write("Accuracy:", accuracy_score(ylog_test, logprediction) * 100, "%")
 
-    # # Create a barplot comparing actual 0s and 1s vs predicted 0s and 1s
-    # true_counts = pd.Series(ylog_test).value_counts().sort_index()
-    # pred_counts = pd.Series(logprediction).value_counts().sort_index()
+    # Create a barplot comparing actual 0s and 1s vs predicted 0s and 1s
+    true_counts = pd.Series(ylog_test).value_counts().sort_index()
+    pred_counts = pd.Series(logprediction).value_counts().sort_index()
 
-    # # Aligning the series for 0s and 1s to have the same indexes
-    # true_counts = true_counts.reindex([0, 1], fill_value=0)
-    # pred_counts = pred_counts.reindex([0, 1], fill_value=0)
+    # Aligning the series for 0s and 1s to have the same indexes
+    true_counts = true_counts.reindex([0, 1], fill_value=0)
+    pred_counts = pred_counts.reindex([0, 1], fill_value=0)
 
-    # # Plotting
-    # labels = ['0', '1']
-    # x = np.arange(len(labels))  # the label locations
+    # Plotting
+    labels = ['0', '1']
+    x = np.arange(len(labels))  # the label locations
 
-    # fig, ax = plt.subplots(figsize=(8, 6))
-    # width = 0.35  # the width of the bars
+    fig, ax = plt.subplots(figsize=(8, 6))
+    width = 0.35  # the width of the bars
 
-    # # Plot the bars
-    # rects1 = ax.bar(x - width/2, true_counts, width, label='True')
-    # rects2 = ax.bar(x + width/2, pred_counts, width, label='Predicted')
+    # Plot the bars
+    rects1 = ax.bar(x - width/2, true_counts, width, label='True')
+    rects2 = ax.bar(x + width/2, pred_counts, width, label='Predicted')
 
-    # # Add some text for labels, title and custom x-axis tick labels, etc.
-    # ax.set_xlabel('Class')
-    # ax.set_ylabel('Count')
-    # ax.set_title('Comparison of True vs Predicted Values for Logistic Regression')
-    # ax.set_xticks(x)
-    # ax.set_xticklabels(labels)
-    # ax.legend()
+    # Add some text for labels, title and custom x-axis tick labels, etc.
+    ax.set_xlabel('Class')
+    ax.set_ylabel('Count')
+    ax.set_title('Comparison of True vs Predicted Values for Logistic Regression')
+    ax.set_xticks(x)
+    ax.set_xticklabels(labels)
+    ax.legend()
 
-    # # Display the plot
-    # st.pyplot(fig)
+    # Display the plot
+    st.pyplot(fig)
 
 with tab2: 
     st.header("knn")
