@@ -32,20 +32,20 @@ with st.spinner('Loading page...'):
     st.markdown(":red[Crash Date/Time]: When the crash occurred.")
     st.markdown(":red[Location Details]: Road name, cross-street name, and municipality.")
     st.markdown(":red[Environmental Conditions:]: Weather, surface condition, light condition.")
-    st.markdown("- :Red[Driver Information:]: Distractions, substance abuse, and fault determination.")
-    st.markdown("- :Red[Vehicle Data:]: Vehicle type, movement, speed limit, and damage extent.")
+    st.markdown(":red[Driver Information:]: Distractions, substance abuse, and fault determination.")
+    st.markdown(":red[Vehicle Data:]: Vehicle type, movement, speed limit, and damage extent.")
 
 
     st.markdown("### Description of Data🧾")
 
     st.dataframe(df.describe())
     st.markdown("This statistical description gives us more information about the count, mean, standard deviation, minimum, percentiles, and Maximum.")
-    st.markdown("- :Red[Count]: All features have 1,000 data points.")
-    st.markdown("- :Red[Mean]: The average value for each feature, e.g., the average humidity is 71.9969, and the average sea-level pressure is 1,016.4357.")
-    st.markdown("- :Red[Standard Deviation (std)]: It indicates the spread of data around the mean. Higher values mean more variability. For example, solar radiation has a standard deviation of 45.73.")
-    st.markdown("- :Red[Minimum]: The lowest recorded value in each feature. For example, the minimum wind speed is 3.5, and cloud cover is 0.")
-    st.markdown("- :Red[Percentiles]: These values show the distribution of data. For example, 50 percent of humidity values are below 73.5, and 75 percent of solar radiation values are below 81.95.")
-    st.markdown("- :Red[Maximum]: The highest recorded value for each feature. For example, the maximum wind speed is 25.3.")
+    st.markdown(":red[Count]: All features have 1,000 data points.")
+    st.markdown(":red[Mean]: The average value for each feature, e.g., the average humidity is 71.9969, and the average sea-level pressure is 1,016.4357.")
+    st.markdown(":red[Standard Deviation (std)]: It indicates the spread of data around the mean. Higher values mean more variability. For example, solar radiation has a standard deviation of 45.73.")
+    st.markdown(":red[Minimum]: The lowest recorded value in each feature. For example, the minimum wind speed is 3.5, and cloud cover is 0.")
+    st.markdown(":red[Percentiles]: These values show the distribution of data. For example, 50 percent of humidity values are below 73.5, and 75 percent of solar radiation values are below 81.95.")
+    st.markdown(":red[Maximum]: The highest recorded value for each feature. For example, the maximum wind speed is 25.3.")
 
     st.markdown("### Missing Values")
     st.markdown("Null or NaN values.")
