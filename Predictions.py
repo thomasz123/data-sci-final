@@ -129,7 +129,7 @@ with tab2:
     results = knn.predict(Xknn_test)
     results
 
-
+    metrics.classification_report(yknn_test,results, digits=3)
 
 
 
