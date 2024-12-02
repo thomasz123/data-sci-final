@@ -105,7 +105,7 @@ with tab2:
     # st.dataframe(df_logistic)
 
     knncolumns = df_knn2.columns
-    knninput = st.multiselect("Select variables:",knncolumns,["Weather"])
+    knninput = st.multiselect("Select variables:",knncolumns,["Lights"])
 
     df_knn2 = df_knn[knninput]
     
@@ -128,7 +128,9 @@ with tab2:
     results = knn.predict(Xknn_test)
     results
 
-    
+
+
+
 
 with tab3: 
     st.header("decision tree")
