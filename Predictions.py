@@ -8,9 +8,11 @@ import streamlit.components.v1 as components
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 from sklearn.linear_model import LinearRegression, LogisticRegression
+from sklearn.tree import DecisionTreeClassifier
 from sklearn import metrics
 from sklearn.metrics import confusion_matrix, accuracy_score, classification_report
 import matplotlib.pyplot as plt
+from sklearn.neighbors import KNeighborsClassifier
 
 st.title(":red[Predictions]")
 
@@ -20,12 +22,12 @@ df = pd.read_csv("mynewdata.csv")
 
 with tab1:
     st.header("logistic")
-    # df_logistic = df
-    # df_logistic['precipitation'] = df_logistic['precip'].apply(lambda x: 1 if x > 0 else 0)
+    df_logistic = df
+    df_logistic['Injury'] = df_logistic['Injury Severity'].apply(lambda x: 0 if x == 1 else 1)
     
     # df_logistic2 = df_logistic.drop(["precipitation", "precip"], axis = 1)
 
-    # st.dataframe(df_logistic2)
+    st.dataframe(df_logistic)
 
     # columns = df_logistic2.columns
     # loginput = st.multiselect("Select variables:",columns,["dew"])
@@ -93,20 +95,53 @@ with tab1:
 
 with tab2: 
     st.header("knn")
+    ## divide the dataset in 4 chuncks X train X test y train and y test
+    from sklearn.model_selection import train_test_split
+    X_train, X_test, y_train, y_test = train_test_split(X,y,test_size=0.2)
 
+    # Standardize the feature values
+    scaler = StandardScaler()
+    X_train = scaler.fit_transform(X_train)
+    X_test = scaler.transform(X_test)
+
+    knn = KNeighborsClassifier(n_neighbors=3)
+    knn.fit(X_train,y_train)
+
+    knn.score(X_test,y_test)
+    results = knn.predict(X_test)
+    results
 
 with tab3: 
     st.header("decision tree")
+    
+    #
+    
+    # Create Decision Tree classifer object
+    clf = DecisionTreeClassifier()
 
+    # Train Decision Tree Classifer
+    clf = clf.fit(X_train,y_train)
 
-# Create Decision Tree classifer object
-clf = DecisionTreeClassifier()
+    #Predict the response for test dataset
+    y_pred = clf.predict(X_test)
+    # Model Accuracy, how often is the classifier correct?
+    print("Accuracy:",metrics.accuracy_score(y_test, y_pred))
 
-# Train Decision Tree Classifer
-clf = clf.fit(X_train,y_train)
+    feature_cols = X.columns
+    feature_cols
 
-#Predict the response for test dataset
-y_pred = clf.predict(X_test)
-# Model Accuracy, how often is the classifier correct?
-print("Accuracy:",metrics.accuracy_score(y_test, y_pred))
+    import graphviz
+    from sklearn.tree import export_graphviz
+    feature_names = X.columns
+    dot_data = export_graphviz(clf, out_file=None,
 
+                            feature_names=feature_cols,
+
+                            class_names=['0','1'],
+
+                            filled=True, rounded=True,
+
+                            special_characters=True)
+
+    graph = graphviz.Source(dot_data)
+    graph

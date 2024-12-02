@@ -39,7 +39,7 @@ with st.spinner('Loading page...'):
     st.markdown("### Description of Data🧾")
 
     st.markdown("This statistical description gives us more information about the count, mean, standard deviation, minimum, percentiles, and Maximum.")
-    st.markdown(":red[Count]: All features have 2,000 data points ensuring a sufficient sample size for analysis.")
+    st.markdown(":red[Count]: All features have 2,000 data points and 29 columns ensuring a sufficient sample size for analysis.")
     st.markdown(":red[Mean]: The average value for each feature")
     st.markdown(":red[Standard Deviation (std)]: It indicates the spread of data around the mean. Higher values mean more variability.")
     st.markdown(":red[Minimum]: The lowest recorded value in each feature.")
