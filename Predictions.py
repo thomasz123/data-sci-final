@@ -72,7 +72,7 @@ with tab1:
     # Aligning the series for 0s and 1s to have the same indexes
     true_counts = true_counts.reindex([0, 1], fill_value=0)
     pred_counts = pred_counts.reindex([0, 1], fill_value=0)
-
+    
     # Plotting
     labels = ['0', '1']
     x = np.arange(len(labels))  # the label locations
@@ -106,7 +106,7 @@ with tab2:
     # st.dataframe(df_logistic)
 
     knncolumns = df_knn2.columns
-    knninput = st.multiselect("Select variables:",knncolumns,["Lights"])
+    knninput = st.multiselect("Select variables:", knncolumns, ["Light"])
 
     df_knn2 = df_knn[knninput]
     
