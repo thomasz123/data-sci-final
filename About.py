@@ -38,14 +38,13 @@ with st.spinner('Loading page...'):
 
     st.markdown("### Description of Data🧾")
 
-    st.dataframe(df.info())
     st.markdown("This statistical description gives us more information about the count, mean, standard deviation, minimum, percentiles, and Maximum.")
     st.markdown(":red[Count]: All features have 2,000 data points ensuring a sufficient sample size for analysis.")
-    st.markdown(":red[Mean]: The average value for each feature, for example, the average crash severity index is")
-    st.markdown(":red[Standard Deviation (std)]: It indicates the spread of data around the mean. Higher values mean more variability. For example, solar radiation has a standard deviation of 45.73.")
-    st.markdown(":red[Minimum]: The lowest recorded value in each feature. For example, the minimum wind speed is 3.5, and cloud cover is 0.")
-    st.markdown(":red[Percentiles]: These values show the distribution of data. For example, 50 percent of humidity values are below 73.5, and 75 percent of solar radiation values are below 81.95.")
-    st.markdown(":red[Maximum]: The highest recorded value for each feature. For example, the maximum wind speed is 25.3.")
+    st.markdown(":red[Mean]: The average value for each feature")
+    st.markdown(":red[Standard Deviation (std)]: It indicates the spread of data around the mean. Higher values mean more variability.")
+    st.markdown(":red[Minimum]: The lowest recorded value in each feature.")
+    st.markdown(":red[Percentiles]: These values show the distribution of data.")
+    st.markdown(":red[Maximum]: The highest recorded value for each feature.")
 
     st.markdown("### Missing Values")
     st.markdown("Null or NaN values.")

@@ -15,7 +15,7 @@ df = pd.read_csv("mynewdata.csv")
 df_cleaned = df.drop("Injury Severity", axis = 1)
 cols = df_cleaned.columns
 
-st.title(":blue[Visualizations]")
+st.title(":red[Visualizations]")
 
 tab1, tab2, tab3, tab4= st.tabs(["Histogram", "Scatterplot", "Pairplot", "Correlation Heatmap"])
 
