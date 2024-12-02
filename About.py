@@ -29,9 +29,9 @@ with st.spinner('Loading page...'):
 
     st.markdown('##### OUR DATA 📂')
     st.markdown("Our dataset includes comprehensive information on car crashes, with variables such as:")
-    st.markdown("- :Red[Crash Date/Time]: When the crash occurred.")
-    st.markdown("- :Red[Location Details]: Road name, cross-street name, and municipality.")
-    st.markdown("- :Red[Environmental Conditions:]: Weather, surface condition, light condition.")
+    st.markdown(":red[Crash Date/Time]: When the crash occurred.")
+    st.markdown(":red[Location Details]: Road name, cross-street name, and municipality.")
+    st.markdown(":red[Environmental Conditions:]: Weather, surface condition, light condition.")
     st.markdown("- :Red[Driver Information:]: Distractions, substance abuse, and fault determination.")
     st.markdown("- :Red[Vehicle Data:]: Vehicle type, movement, speed limit, and damage extent.")
 
