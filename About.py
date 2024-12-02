@@ -19,7 +19,7 @@ with st.spinner('Loading page...'):
 
     st.write("Details about our project, explanation of database, etc")
 
-    df = pd.read_csv("weather.csv")
+    df = pd.read_csv("mynewdata.csv")
     df = df.drop(["datetime","temp"], axis = 1)  
 
     st.markdown('##### WHY THIS TOPIC? 🔍')

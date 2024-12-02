@@ -10,9 +10,9 @@ from sklearn.linear_model import LinearRegression
 from sklearn import metrics
 import matplotlib.pyplot as plt
 
-df = pd.read_csv("weather.csv")
-df = df.drop("datetime", axis = 1)
-df_cleaned = df.drop("temp", axis = 1)
+df = pd.read_csv("mynewdata.csv")
+#df = df.drop("datetime", axis = 1)
+df_cleaned = df.drop("Injury Severity", axis = 1)
 cols = df_cleaned.columns
 
 st.title(":blue[Visualizations]")
@@ -34,7 +34,7 @@ def heatmap():
 @st.cache_data
 def histogram():
     fig, ax = plt.subplots(figsize=(10, 6))
-    sns.histplot(df['temp'], kde=True)
+    sns.histplot(df['Injury Severity'], kde=True)
     st.pyplot(fig)
 
 
@@ -48,7 +48,7 @@ with tab2: #scatterplot
     st.header("Scatterplot")
     variable = st.radio("Pick one", cols)
     fig, ax = plt.subplots(figsize=(10, 6))
-    sns.scatterplot(data = df, x = variable, y = "temp")
+    sns.scatterplot(data = df, x = variable, y = "Injury Severity")
     st.pyplot(fig)
     st.markdown("You can choose a variable to see its scatterplot with temperature. We can see from the scatterplot if there's any semblance of correlation between the variable and temperature.")
 
