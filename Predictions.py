@@ -28,6 +28,7 @@ with tab1:
     
     df_logistic2 = df_logistic.drop(["day of the week", "date", "time", "Report Number", "Circumstance", "Injury Severity", "Injury"], axis = 1)
 
+    df_logistic2
     # st.dataframe(df_logistic)
 
     logcolumns = df_logistic2.columns
