@@ -14,7 +14,7 @@ with st.spinner('Loading page...'):
     st.title(":red[Comprehensive Analysis of Car Crash Factors]")
     st.subheader("Exploring the Impact of Different Variables on Road Safety")
 
-    image_path = Image.open("Car.jpg") 
+    image_path = Image.open("Car.jpeg") 
     st.image(image_path)
 
     st.write("Details about our project, explanation of database, etc")
