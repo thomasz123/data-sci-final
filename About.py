@@ -20,7 +20,7 @@ with st.spinner('Loading page...'):
     st.write("Details about our project, explanation of database, etc")
 
     df = pd.read_csv("mynewdata.csv")
-    df = df.drop(["datetime","temp"], axis = 1)  
+    #df = df.drop(["datetime","temp"], axis = 1)  
 
     st.markdown('##### WHY THIS TOPIC? 🔍')
     st.markdown('Understanding the factors contributing to car crashes is essential for improving road safety, urban planning, and emergency response systems. By analyzing patterns in crash data, we can identify high-risk areas, timeframes, and behaviors, enabling proactive measures to reduce accidents and save lives.')
