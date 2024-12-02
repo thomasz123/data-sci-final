@@ -139,31 +139,31 @@ with tab3:
     #
     
     # Create Decision Tree classifer object
-    clf = DecisionTreeClassifier()
+    # clf = DecisionTreeClassifier()
 
-    # Train Decision Tree Classifer
-    clf = clf.fit(X_train,y_train)
+    # # Train Decision Tree Classifer
+    # clf = clf.fit(X_train,y_train)
 
-    #Predict the response for test dataset
-    y_pred = clf.predict(X_test)
-    # Model Accuracy, how often is the classifier correct?
-    print("Accuracy:",metrics.accuracy_score(y_test, y_pred))
+    # #Predict the response for test dataset
+    # y_pred = clf.predict(X_test)
+    # # Model Accuracy, how often is the classifier correct?
+    # print("Accuracy:",metrics.accuracy_score(y_test, y_pred))
 
-    feature_cols = X.columns
-    feature_cols
+    # feature_cols = X.columns
+    # feature_cols
 
-    import graphviz
-    from sklearn.tree import export_graphviz
-    feature_names = X.columns
-    dot_data = export_graphviz(clf, out_file=None,
+    # import graphviz
+    # from sklearn.tree import export_graphviz
+    # feature_names = X.columns
+    # dot_data = export_graphviz(clf, out_file=None,
 
-                            feature_names=feature_cols,
+    #                         feature_names=feature_cols,
 
-                            class_names=['0','1'],
+    #                         class_names=['0','1'],
 
-                            filled=True, rounded=True,
+    #                         filled=True, rounded=True,
 
-                            special_characters=True)
+    #                         special_characters=True)
 
-    graph = graphviz.Source(dot_data)
-    graph
+    # graph = graphviz.Source(dot_data)
+    # graph
