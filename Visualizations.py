@@ -10,7 +10,7 @@ from sklearn.linear_model import LinearRegression
 from sklearn import metrics
 import matplotlib.pyplot as plt
 
-df = pd.read_csv("mynewdata.csv")
+df = pd.read_csv("final_data_words.csv")
 #df = df.drop("datetime", axis = 1)
 df_cleaned = df.drop("Injury Severity", axis = 1)
 cols = df_cleaned.columns

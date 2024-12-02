@@ -5,13 +5,14 @@ import seaborn as sns
 from PIL import Image
 import codecs
 import streamlit.components.v1 as components
-from sklearn.model_selection import train_test_split
+from sklearn.model_selection import train_test_split, GridSearchCV
 from sklearn.preprocessing import StandardScaler
 from sklearn.linear_model import LinearRegression, LogisticRegression
 from sklearn.tree import DecisionTreeClassifier
 from sklearn import metrics
 from sklearn.metrics import confusion_matrix, accuracy_score, classification_report
 import matplotlib.pyplot as plt
+import graphviz
 from sklearn.neighbors import KNeighborsClassifier
 
 st.title(":red[Predictions]")
@@ -101,7 +102,7 @@ with tab2:
     df_knn = df
     df_knn['Injury'] = df_knn['Injury Severity'].apply(lambda x: 0 if x == 1 else 1)
     
-    df_knn2 = df_logistic.drop(["day of the week", "date", "time", "Report Number", "Circumstance", "Injury Severity", "Injury"], axis = 1)
+    df_knn2 = df_knn.drop(["day of the week", "date", "time", "Report Number", "Circumstance", "Injury Severity", "Injury"], axis = 1)
 
     # st.dataframe(df_logistic)
 
@@ -125,34 +126,75 @@ with tab2:
     knn = KNeighborsClassifier(n_neighbors=3)
     knn.fit(Xknn_train,yknn_train)
 
-    knn.score(Xknn_test,yknn_test)
+    st.write("Accuracy:", knn.score(Xknn_test,yknn_test) * 100, "%")
     results = knn.predict(Xknn_test)
-    results
+    # st.write(results)
 
-    metrics.classification_report(yknn_test,results, digits=3)
+    k_list = range(1, 31)
+    k_values = dict(n_neighbors=k_list)
 
+    grid = GridSearchCV(knn, k_values, cv=5, scoring='accuracy')
+    grid.fit(df_knn2, df_knn['Injury'])
 
+    # for key in grid.cv_results_.keys():
+    #     st.write(key)
+    
+    st.write("The best value of k = {} with {} of accuracy.".format(grid.best_params_,grid.best_score_))
+    st.write("The best classifier is: {}".format(grid.best_estimator_))
+
+    graphic = grid.cv_results_['mean_test_score']
+    graphic
+
+    fig, ax = plt.subplots(figsize=(10, 6))
+    plt.plot(k_list,graphic,color='navy',linestyle='dashed',marker='o')
+    plt.xlabel('K Number of Neighbors', fontdict={'fontsize': 15})
+    plt.ylabel('Accuracy', fontdict={'fontsize': 15})
+    plt.title('K NUMBER X ACCURACY', fontdict={'fontsize': 30})
+    plt.xticks(range(0,31,3),)
+    #plt.xaxis.set_major_locator(MultipleLocator(3))
+    st.pyplot(fig)
 
 with tab3: 
-    st.header("decision tree")
+    st.header("Decision Tree")
     
-    #
+    df_dt = df
+    df_dt['Injury'] = df_dt['Injury Severity'].apply(lambda x: 0 if x == 1 else 1)
     
-    # Create Decision Tree classifer object
-    # clf = DecisionTreeClassifier()
+    df_dt2 = df_dt.drop(["day of the week", "date", "time", "Report Number", "Circumstance", "Injury Severity", "Injury"], axis = 1)
 
-    # # Train Decision Tree Classifer
-    # clf = clf.fit(X_train,y_train)
+    # st.dataframe(df_logistic)
 
-    # #Predict the response for test dataset
-    # y_pred = clf.predict(X_test)
+    dtcolumns = df_dt2.columns
+    dtinput = st.multiselect("Select variables:", dtcolumns, ["Collision Type"])
+
+    df_dt2 = df_dt[dtinput]
+    
+    # #st.pyplot create a countplot to count the number of rainy and non rainy days
+
+    Xdt = df_dt2
+    ydt = df_dt["Injury"]
+
+    Xdt_train, Xdt_test, ydt_train, ydt_test = train_test_split(Xdt,ydt,test_size = 0.3)
+
+    # Standardize the feature values
+    scaler = StandardScaler()
+    Xdt_train = scaler.fit_transform(Xdt_train)
+    Xdt_test = scaler.transform(Xdt_test)
+    
+    #Create Decision Tree classifer object
+    clf = DecisionTreeClassifier()
+
+    # Train Decision Tree Classifer
+    clf = clf.fit(Xdt_train,ydt_train)
+
+    # Predict the response for test dataset
+    ydt_pred = clf.predict(Xdt_test)
     # # Model Accuracy, how often is the classifier correct?
-    # print("Accuracy:",metrics.accuracy_score(y_test, y_pred))
+    st.write("Accuracy:",metrics.accuracy_score(ydt_test, ydt_pred)*100, "%")
 
     # feature_cols = X.columns
     # feature_cols
 
-    # import graphviz
     # from sklearn.tree import export_graphviz
     # feature_names = X.columns
     # dot_data = export_graphviz(clf, out_file=None,
