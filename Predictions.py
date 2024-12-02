@@ -16,8 +16,9 @@ from sklearn.neighbors import KNeighborsClassifier
 
 st.title(":red[Predictions]")
 
-tab1, tab2, tab3 = st.tabs(["Logisitic Regression", "KNN Classifier", "Decision Tree"])
+tab1, tab2, tab3 = st.tabs(["Logisitic Regression", "KNN", "Decision Tree"])
 df = pd.read_csv("mynewdata.csv")
+
 #df = df.drop(["datetime"], axis = 1)  
 
 with tab1:
@@ -25,12 +26,12 @@ with tab1:
     df_logistic = df
     df_logistic['Injury'] = df_logistic['Injury Severity'].apply(lambda x: 0 if x == 1 else 1)
     
-    df_logistic2 = df_logistic.drop(["day of the week", "date", "time", "Report Number", "Circumstance"], axis = 1)
+    df_logistic2 = df_logistic.drop(["day of the week", "date", "time", "Report Number", "Circumstance", "Injury Severity", "Injury"], axis = 1)
 
     # st.dataframe(df_logistic)
 
-    columns = df_logistic2.columns
-    loginput = st.multiselect("Select variables:",columns,["Weather"])
+    logcolumns = df_logistic2.columns
+    loginput = st.multiselect("Select variables:",logcolumns,["Weather"])
 
     df_logistic2 = df_logistic[loginput]
     
@@ -94,22 +95,40 @@ with tab1:
     st.pyplot(fig)
 
 with tab2: 
-    st.header("knn")
-    ## divide the dataset in 4 chuncks X train X test y train and y test
-    from sklearn.model_selection import train_test_split
-    X_train, X_test, y_train, y_test = train_test_split(X,y,test_size=0.2)
+    st.header("KNN")
+    
+    df_knn = df
+    df_knn['Injury'] = df_knn['Injury Severity'].apply(lambda x: 0 if x == 1 else 1)
+    
+    df_knn2 = df_logistic.drop(["day of the week", "date", "time", "Report Number", "Circumstance", "Injury Severity", "Injury"], axis = 1)
+
+    # st.dataframe(df_logistic)
+
+    knncolumns = df_knn2.columns
+    knninput = st.multiselect("Select variables:",knncolumns,["Weather"])
+
+    df_knn2 = df_knn[knninput]
+    
+    # #st.pyplot create a countplot to count the number of rainy and non rainy days
+
+    Xknn = df_knn2
+    yknn = df_knn["Injury"]
+
+    Xknn_train, Xknn_test, yknn_train, yknn_test = train_test_split(Xknn,yknn,test_size = 0.3)
 
     # Standardize the feature values
     scaler = StandardScaler()
-    X_train = scaler.fit_transform(X_train)
-    X_test = scaler.transform(X_test)
+    Xknn_train = scaler.fit_transform(Xknn_train)
+    Xknn_test = scaler.transform(Xknn_test)
 
     knn = KNeighborsClassifier(n_neighbors=3)
-    knn.fit(X_train,y_train)
+    knn.fit(Xknn_train,yknn_train)
 
-    knn.score(X_test,y_test)
-    results = knn.predict(X_test)
+    knn.score(Xknn_test,yknn_test)
+    results = knn.predict(Xknn_test)
     results
+
+    
 
 with tab3: 
     st.header("decision tree")
