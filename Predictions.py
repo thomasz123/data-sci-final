@@ -14,7 +14,7 @@ import matplotlib.pyplot as plt
 
 st.title(":blue[Predictions]")
 
-tab1, tab2 = st.tabs(["Linear Regression", "Logistic Regression"])
+tab1, tab2, tab3 = st.tabs(["Logisitic Regression", "KNN Classifier", "Decision Tree"])
 df = pd.read_csv("weather.csv")
 df = df.drop(["datetime"], axis = 1)  
 
