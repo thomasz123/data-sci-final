@@ -14,10 +14,11 @@ df = pd.read_csv("final_data_words.csv")
 #df = df.drop("datetime", axis = 1)
 df_cleaned = df.drop("Injury Severity", axis = 1)
 cols = df_cleaned.columns
+cols_uncleaned = df.columns
 
 st.title(":red[Visualizations]")
 
-tab1, tab2, tab3, tab4= st.tabs(["Histogram", "Scatterplot", "Pairplot", "Correlation Heatmap"])
+tab1, tab2, tab3, tab4= st.tabs(["Count Plots", "Box and Whisker Plots", "Pie Charts", "Map"])
 
 @st.cache_data 
 def pairplot():
@@ -31,20 +32,22 @@ def heatmap():
     st.pyplot(fig)
     #return fig
 
-@st.cache_data
-def histogram():
+# @st.cache_data
+# def countplot():
+#     fig, ax = plt.subplots(figsize=(10, 6))
+#     sns.countplot(df['Injury Severity'], kde=True)
+#     st.pyplot(fig)
+
+
+with tab1: #count plots
+    st.header("Count Plots")
+    variable = st.radio("Pick one", cols_uncleaned)
     fig, ax = plt.subplots(figsize=(10, 6))
-    sns.histplot(df['Injury Severity'], kde=True)
-    st.pyplot(fig)
+    sns.countplot(data = df, x = variable)
+    st.markdown("You can choose a variable to see its countplot.")
 
 
-with tab1: #histogram
-    st.header("Histogram")
-    histogram()
-    st.markdown("This histogram shows the distribution of temperature data, and shows us the number of observations for each bin of temperatures. The distribution is made more obvious by the KDE curve. The distribution seems to be mostly symmetrical in a bell curve and unimodal, with a slight skew right.")
-
-
-with tab2: #scatterplot
+with tab2: #box and whisker plots
     st.header("Scatterplot")
     variable = st.radio("Pick one", cols)
     fig, ax = plt.subplots(figsize=(10, 6))
@@ -52,14 +55,14 @@ with tab2: #scatterplot
     st.pyplot(fig)
     st.markdown("You can choose a variable to see its scatterplot with temperature. We can see from the scatterplot if there's any semblance of correlation between the variable and temperature.")
 
-with tab3: #pairplot
+with tab3: #pie charts
     with st.spinner("Loading visualizations..."):
         st.header('Pairplot')
         pairplot()
         st.markdown("This pairplot shows the scatterplot between any two variables. We get a more full idea of the correlations between certain variables.  The diagonal shows the countplot for that variable, and shows the distribution of the data for that variable.")
 
 
-with tab4: #heatmap
+with tab4: #map
     with st.spinner("Loading visualizations..."):
         st.header('Heatmap')
         heatmap()

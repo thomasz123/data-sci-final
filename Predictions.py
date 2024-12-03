@@ -15,6 +15,7 @@ import matplotlib.pyplot as plt
 import graphviz
 from sklearn.neighbors import KNeighborsClassifier
 from shapash.explainer.smart_explainer import SmartExplainer
+import random
 
 st.title(":red[Predictions]")
 
@@ -227,9 +228,24 @@ with tab3:
 with tab4: 
     st.header("Explainable AI")
     xpl = SmartExplainer(clf)
-    xpl.plot.features_importance()
+    y_pred = pd.Series(logprediction)
+    X_test = Xlog_test.reset_index(drop=True)
+    xpl.compile(x=X_test, y_pred=y_pred)
+    # fig, ax = plt.subplots(figsize = (10,6))
+    
+    st.write(xpl.plot.features_importance())
+
+    subset = random.choices(X_test.index, k =50)
+    st.write(xpl.plot.features_importance(selection=subset))
+
+    df_cols = df_logistic2.columns
+    choice = st.radio("Pick a variable", df_cols)
+
+    st.write(xpl.plot.contribution_plot(choice))
 
 
 with tab5:
-    st.header("MLFlow")
+    st.header("Hyperparameter Tuning")
+
+
 
