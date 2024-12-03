@@ -40,8 +40,6 @@ with st.spinner('Loading page...'):
 
     st.markdown("This statistical description gives us more information about the count, mean, standard deviation, minimum, percentiles, and Maximum.")
     st.markdown(":red[Count]: All features have 2,000 data points and 29 columns ensuring a sufficient sample size for analysis.")
-    st.markdown(":red[Mean]: The average value for each feature")
-    st.markdown(":red[Standard Deviation (std)]: It indicates the spread of data around the mean. Higher values mean more variability.")
     st.markdown(":red[Minimum]: The lowest recorded value in each feature.")
     st.markdown(":red[Percentiles]: These values show the distribution of data.")
     st.markdown(":red[Maximum]: The highest recorded value for each feature.")
@@ -49,12 +47,14 @@ with st.spinner('Loading page...'):
     st.markdown("### Missing Values")
     st.markdown("Null or NaN values.")
 
-    dfnull = df.isnull().sum()/len(df)*100
+    st.write(df.isnull().mean() * 100)
+    # st.write((df.isnull().mean() * 100).sum())
+    dfnull = (df.isnull().mean() * 100).sum() / len(df)
     totalmiss = dfnull.sum().round(2)
     st.write("Percentage of total missing values:",totalmiss)
-    st.write(dfnull)
-    if totalmiss == 0.0:
-        st.success("✅ We do not exprience any missing values which is the ideal outcome of our data. We can proceed with higher accuracy in our further prediction.")
+    
+    if totalmiss < 5.0:
+        st.success("✅ We have less than 5% missing values. We can proceed with higher accuracy in our further prediction.")
     else:
         st.warning("Poor data quality due to greater than 30 percent of missing value.")
         st.markdown(" > Theoretically, 25 to 30 percent is the maximum missing values are allowed, there's no hard and fast rule to decide this threshold. It can vary from problem to problem.")

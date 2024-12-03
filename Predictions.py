@@ -14,10 +14,11 @@ from sklearn.metrics import confusion_matrix, accuracy_score, classification_rep
 import matplotlib.pyplot as plt
 import graphviz
 from sklearn.neighbors import KNeighborsClassifier
+from shapash.explainer.smart_explainer import SmartExplainer
 
 st.title(":red[Predictions]")
 
-tab1, tab2, tab3 = st.tabs(["Logisitic Regression", "KNN", "Decision Tree"])
+tab1, tab2, tab3, tab4, tab5 = st.tabs(["Logisitic Regression", "KNN", "Decision Tree", "Explainable AI", "MLFlow"])
 df = pd.read_csv("mynewdata.csv")
 
 #df = df.drop(["datetime"], axis = 1)  
@@ -33,9 +34,9 @@ with tab1:
     # st.dataframe(df_logistic)
 
     logcolumns = df_logistic2.columns
-    
-    test = st.multiselect("Select variables:",logcolumns,["Weather"])
-    everything = st.checkbox("Choose all variables")
+
+    test = st.multiselect("Select variables:",logcolumns,["Weather"], key = 1)
+    everything = st.checkbox("Choose all variables", key = 4)
 
     if everything:
         loginput = logcolumns
@@ -114,8 +115,13 @@ with tab2:
     # st.dataframe(df_logistic)
 
     knncolumns = df_knn2.columns
-    knninput = st.multiselect("Select variables:", knncolumns, ["Light"])
+    knninput = st.multiselect("Select variables:", knncolumns, ["Weather"], key = 2)
 
+    dteverything = st.checkbox("Choose all variables", key = 5)
+
+    if dteverything:
+        knninput = knncolumns
+        
     df_knn2 = df_knn[knninput]
     
     # #st.pyplot create a countplot to count the number of rainy and non rainy days
@@ -133,7 +139,7 @@ with tab2:
     knn = KNeighborsClassifier(n_neighbors=3)
     knn.fit(Xknn_train,yknn_train)
 
-    st.write("Accuracy:", knn.score(Xknn_test,yknn_test) * 100, "%")
+    # st.write("Accuracy:", knn.score(Xknn_test,yknn_test) * 100, "%")
     results = knn.predict(Xknn_test)
     # st.write(results)
 
@@ -172,11 +178,15 @@ with tab3:
     # st.dataframe(df_logistic)
 
     dtcolumns = df_dt2.columns
-    dtinput = st.multiselect("Select variables:", dtcolumns, ["Collision Type"])
+    dtinput = st.multiselect("Select variables:", dtcolumns, ["Weather"], key = 3)
+    dteverything = st.checkbox("Choose all variables", key = 6)
 
-    df_dt2 = df_dt[dtinput]
+    if dteverything:
+        dtinput = dtcolumns
     
     # #st.pyplot create a countplot to count the number of rainy and non rainy days
+
+    df_dt2 = df_dt[dtinput]
 
     Xdt = df_dt2
     ydt = df_dt["Injury"]
@@ -213,3 +223,13 @@ with tab3:
 
     graph = graphviz.Source(dot_data)
     graph  
+
+with tab4: 
+    st.header("Explainable AI")
+    xpl = SmartExplainer(clf)
+    xpl.plot.features_importance()
+
+
+with tab5:
+    st.header("MLFlow")
+
