@@ -44,6 +44,7 @@ with tab1: #count plots
     variable = st.radio("Pick one", cols_uncleaned)
     fig, ax = plt.subplots(figsize=(10, 6))
     sns.countplot(data = df, x = variable)
+    st.pyplot(fig)
     st.markdown("You can choose a variable to see its countplot.")
 
 
