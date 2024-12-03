@@ -29,11 +29,18 @@ with tab1:
     
     df_logistic2 = df_logistic.drop(["day of the week", "date", "time", "Report Number", "Circumstance", "Injury Severity", "Injury"], axis = 1)
 
-    df_logistic2
+    # df_logistic2
     # st.dataframe(df_logistic)
 
     logcolumns = df_logistic2.columns
-    loginput = st.multiselect("Select variables:",logcolumns,["Weather"])
+    
+    test = st.multiselect("Select variables:",logcolumns,["Weather"])
+    everything = st.checkbox("Choose all variables")
+
+    if everything:
+        loginput = logcolumns
+    else:
+        loginput = test
 
     df_logistic2 = df_logistic[loginput]
     
@@ -57,7 +64,7 @@ with tab1:
     cm = confusion_matrix(ylog_test, logprediction)
     
     fig, ax = plt.subplots(figsize = (10,6))
-    sns.heatmap(pd.DataFrame(cm), annot = True, cmap = "YlGnBu")
+    sns.heatmap(pd.DataFrame(cm), annot = True, fmt=".0f", cmap = "YlGnBu")
     plt.title("Confusion matrix",fontsize=25)
     plt.xlabel("Predicted",fontsize=18)
     plt.ylabel("Actual", fontsize=18)
@@ -143,7 +150,7 @@ with tab2:
     st.write("The best classifier is: {}".format(grid.best_estimator_))
 
     graphic = grid.cv_results_['mean_test_score']
-    graphic
+    # graphic
 
     fig, ax = plt.subplots(figsize=(10, 6))
     plt.plot(k_list,graphic,color='navy',linestyle='dashed',marker='o')
