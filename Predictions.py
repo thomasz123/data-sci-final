@@ -8,7 +8,7 @@ import streamlit.components.v1 as components
 from sklearn.model_selection import train_test_split, GridSearchCV
 from sklearn.preprocessing import StandardScaler
 from sklearn.linear_model import LinearRegression, LogisticRegression
-from sklearn.tree import DecisionTreeClassifier
+from sklearn.tree import DecisionTreeClassifier, export_graphviz
 from sklearn import metrics
 from sklearn.metrics import confusion_matrix, accuracy_score, classification_report
 import matplotlib.pyplot as plt
@@ -192,20 +192,17 @@ with tab3:
     # # Model Accuracy, how often is the classifier correct?
     st.write("Accuracy:",metrics.accuracy_score(ydt_test, ydt_pred)*100, "%")
 
-    # feature_cols = X.columns
-    # feature_cols
+    
+    feature_cols = Xdt.columns
+    dot_data = export_graphviz(clf, out_file=None,
 
-    # from sklearn.tree import export_graphviz
-    # feature_names = X.columns
-    # dot_data = export_graphviz(clf, out_file=None,
+                            feature_names=feature_cols,
 
-    #                         feature_names=feature_cols,
+                            class_names=['0','1'],
 
-    #                         class_names=['0','1'],
+                            filled=True, rounded=True,
 
-    #                         filled=True, rounded=True,
+                            special_characters=True)
 
-    #                         special_characters=True)
-
-    # graph = graphviz.Source(dot_data)
-    # graph
+    graph = graphviz.Source(dot_data)
+    graph  
