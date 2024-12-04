@@ -5,6 +5,7 @@ st.markdown("Ensuring data quality is a fundamental step in any data science pro
 
 st.header("Data Quality")
 st.markdown("Large dataset, missing values, categorical data, and data only from one county")
+st.markdown("Less than 5% missing data means that most of the observations or records are complete, reducing the risk of losing important information.")
 
 st.header("Model Related Improvements")
 st.markdown("Our models: KNN, Logisitic Regression, Decision Tree")

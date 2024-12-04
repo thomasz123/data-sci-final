@@ -12,11 +12,8 @@ import matplotlib.pyplot as plt
 # import folium 
 # from streamlit_folium import st_folium
 
-st.write("stuffs")
 df = pd.read_csv("final_data_words.csv")
-st.write("test2")
-datag= pd.read_csv("gedited2.csv")
-st.write("test")
+datag = pd.read_csv("gedited2.csv")
 
 df_cleaned = df.drop("Injury Severity", axis = 1)
 cols = df_cleaned.columns
