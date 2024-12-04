@@ -16,6 +16,11 @@ import graphviz
 from sklearn.neighbors import KNeighborsClassifier
 from shapash.explainer.smart_explainer import SmartExplainer
 import random
+import mlflow
+import dagshub
+from mlflow import log_metric, log_param, log_artifact
+
+dagshub.init(repo_owner='thomasz123', repo_name='data-sci-final', mlflow=True)
 
 st.title(":red[Predictions]")
 
@@ -246,6 +251,178 @@ with tab4:
 
 with tab5:
     st.header("Hyperparameter Tuning")
+    st.link_button("Go to MLFlow", "https://dagshub.com/thomasz123/data-sci-final/experiments")
+
+    dt_train = st.button("Train Decision Tree")
+
+    if dt_train:
+
+        with mlflow.start_run():
+
+            # Split the data into training and testing sets
+            X_train, X_test, y_train, y_test = train_test_split(Xdt, ydt, test_size=0.3, random_state=42)
+
+            # Create a decision tree classifier
+            dt = DecisionTreeClassifier(random_state=42)
+
+            # Define a parameter grid to search over
+            param_grid = {'max_depth': [3, 5, 10], 'min_samples_leaf': [1, 2, 4]}
+
+            # Create GridSearchCV object
+            grid_search = GridSearchCV(estimator=dt, param_grid=param_grid, cv=5)
+
+            # Perform grid search to find the best parameters
+            grid_search.fit(X_train, y_train)
+
+            # Log the best parameters
+            best_params = grid_search.best_params_
+            mlflow.log_params(best_params)
+
+            #y_pred 
+
+            # Evaluate the model
+            best_dt = grid_search.best_estimator_
+            test_score = best_dt.score(X_test, y_test)
+
+            # Log the performance metric
+            accuracy = metrics.accuracy_score(y_test, ydt_pred)
+            precision = metrics.precision_score(y_test, ydt_pred)
+            recall = metrics.recall_score(y_test, ydt_pred)
+            f1 = metrics.f1_score(y_test, ydt_pred)
+
+            log_metric("accuracy", accuracy)
+            log_metric("precision", precision)
+            log_metric("recall", recall)
+            log_metric("f1", f1)
+
+
+            print(f"Accuracy: {accuracy}")
+            print(f"Precision: {precision}")
+            print(f"Recall: {recall}")
+            print(f"F1 Score: {f1}")
+            # Log the best model in MLflow
+            mlflow.sklearn.log_model(best_dt, "best_dt")
+
+            # Save the model to the MLflow artifact store
+            mlflow.sklearn.save_model(best_dt, "best_dt_model")
+
+            mlflow.end_run()
+
+    log_train = st.button("Train Logisitic Regression")
+
+    if log_train:
+
+        with mlflow.start_run():
+
+            # Split the data into training and testing sets
+            X_train, X_test, y_train, y_test = train_test_split(Xlog, ylog, test_size=0.2, random_state=42)
+
+            lr_param_grid = {'C': [0.1, 1, 10]}
+            lr = LogisticRegression(random_state=42)
+
+    
+            # Create GridSearchCV object
+            grid_search = GridSearchCV(estimator=lr, param_grid=lr_param_grid, cv=5)
+
+            # Perform grid search to find the best parameters
+            grid_search.fit(X_train, y_train)
+
+            # Log the best parameters
+            best_params = grid_search.best_params_
+            mlflow.log_params(best_params)
+
+            #y_pred 
+
+            # Evaluate the model
+            best_lr = grid_search.best_estimator_
+            test_score = best_lr.score(X_test, y_test)
+
+            # Log the performance metric
+            accuracy = metrics.accuracy_score(y_test, logprediction)
+            precision = metrics.precision_score(y_test, logprediction)
+            recall = metrics.recall_score(y_test, logprediction)
+            f1 = metrics.f1_score(y_test, logprediction)
+
+            log_metric("accuracy", accuracy)
+            log_metric("precision", precision)
+            log_metric("recall", recall)
+            log_metric("f1", f1)
+
+
+            print(f"Accuracy: {accuracy}")
+            print(f"Precision: {precision}")
+            print(f"Recall: {recall}")
+            print(f"F1 Score: {f1}")
+            # Log the best model in MLflow
+            mlflow.sklearn.log_model(best_lr, "best_lr")
+
+            # Save the model to the MLflow artifact store
+            mlflow.sklearn.save_model(best_lr, "best_lr_model")
+
+            mlflow.end_run()
+
+    knn_train = st.button("Train KNN")
+
+    if knn_train:
+
+        with mlflow.start_run():
+
+            # Split the data into training and testing sets
+            X_train, X_test, y_train, y_test = train_test_split(Xknn, yknn, test_size=0.3, random_state=42)
+
+            # Create KNN
+            knn = KNeighborsClassifier(n_neighbors=3)
+
+            # Define a parameter grid to search over
+            # param_grid = {'max_depth': [3, 5, 10], 'min_samples_leaf': [1, 2, 4]}
+
+            # Create GridSearchCV object
+            knn = KNeighborsClassifier(n_neighbors=3)
+            knn.fit(Xknn_train,yknn_train)
+
+            # st.write("Accuracy:", knn.score(Xknn_test,yknn_test) * 100, "%")
+            results = knn.predict(Xknn_test)
+            # st.write(results)
+
+            k_list = range(1, 31)
+            k_values = dict(n_neighbors=k_list)
+
+            grid = GridSearchCV(knn, k_values, cv=5, scoring='accuracy')
+            grid.fit(df_knn2, df_knn['Injury'])
+
+            # Log the best parameters
+            knnbest_params = grid.best_params_
+            mlflow.log_params(knnbest_params)
+
+            #y_pred 
+
+            # Evaluate the model
+            best_knn = grid.best_estimator_
+            test_score = best_knn.score(X_test, y_test)
+
+            # Log the performance metric
+            accuracy = metrics.accuracy_score(y_test, results)
+            precision = metrics.precision_score(y_test, results)
+            recall = metrics.recall_score(y_test, results)
+            f1 = metrics.f1_score(y_test, results)
+
+            log_metric("accuracy", accuracy)
+            log_metric("precision", precision)
+            log_metric("recall", recall)
+            log_metric("f1", f1)
+
+
+            print(f"Accuracy: {accuracy}")
+            print(f"Precision: {precision}")
+            print(f"Recall: {recall}")
+            print(f"F1 Score: {f1}")
+            # Log the best model in MLflow
+            mlflow.sklearn.log_model(best_knn, "best_knn")
+
+            # Save the model to the MLflow artifact store
+            mlflow.sklearn.save_model(best_knn, "best_knn_model")
+
+            mlflow.end_run()
 
 
 
