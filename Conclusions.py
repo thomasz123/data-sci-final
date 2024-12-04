@@ -14,7 +14,5 @@ st.markdown("Time of day and day of the week significantly influence crash occur
 st.markdown("")
 
 st.markdown(":[red proposed solutions:]")
-oposed solutions:")
 
-st.ng crash severity.")
 st.markdown("-: Visualization: Develop intuitive dashboards or visualizations to communicate findings for people with no experience in data science")
