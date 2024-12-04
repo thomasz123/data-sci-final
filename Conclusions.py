@@ -15,5 +15,5 @@ st.markdown("This insight can inform targeted interventions like increased traff
 st.markdown("")
 
 st.markdown("Red Proposed Solutions:]")
-
+st.markdown
 st.markdown("-: Visualization: Develop intuitive dashboards or visualizations to communicate findings for people with no experience in data science")
