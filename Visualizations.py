@@ -15,6 +15,7 @@ import matplotlib.pyplot as plt
 st.write("stuffs")
 df = pd.read_csv("final_data_words.csv")
 datag= pd.read_csv("gedited2.csv")
+st.write("test")
 #df = df.drop("datetime", axis = 1)
 # df_cleaned = df.drop("Injury Severity", axis = 1)
 # cols = df_cleaned.columns
