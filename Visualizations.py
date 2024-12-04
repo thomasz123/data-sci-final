@@ -14,6 +14,7 @@ import matplotlib.pyplot as plt
 
 st.write("stuffs")
 df = pd.read_csv("final_data_words.csv")
+st.write("test2")
 datag= pd.read_csv("gedited2.csv")
 st.write("test")
 
