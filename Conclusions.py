@@ -9,5 +9,12 @@ st.markdown("Large dataset, missing values, categorical data, and data only from
 st.header("Model Related Improvements")
 st.markdown("Our models: KNN, Logisitic Regression, Decision Tree")
 
-st.header("Next Steps")
+st.markdown("key insights:")
+st.markdown("Time of day and day of the week significantly influence crash occurrence, with higher frequencies observed during peak traffic hours or weekends.")rst.markdown("This insight can inform targeted interventions like increased traffic enforcement during high-risk periods.")
 st.markdown("")
+
+st.markdown(":[red proposed solutions:]")
+oposed solutions:")
+
+st.ng crash severity.")
+st.markdown("-: Visualization: Develop intuitive dashboards or visualizations to communicate findings for people with no experience in data science")
