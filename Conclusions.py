@@ -10,7 +10,8 @@ st.header("Model Related Improvements")
 st.markdown("Our models: KNN, Logisitic Regression, Decision Tree")
 
 st.markdown("key insights:")
-st.markdown("Time of day and day of the week significantly influence crash occurrence, with higher frequencies observed during peak traffic hours or weekends.")rst.markdown("This insight can inform targeted interventions like increased traffic enforcement during high-risk periods.")
+st.markdown("Time of day and day of the week significantly influence crash occurrence, with higher frequencies observed during peak traffic hours or weekends.")
+st.markdown("This insight can inform targeted interventions like increased traffic enforcement during high-risk periods.")
 st.markdown("")
 
 st.markdown(":[red proposed solutions:]")
