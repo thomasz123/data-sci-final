@@ -20,7 +20,7 @@ import mlflow
 import dagshub
 from mlflow import log_metric, log_param, log_artifact
 
-dagshub.init(repo_owner='thomasz123', repo_name='data-sci-final', mlflow=True)
+#dagshub.init(repo_owner='thomasz123', repo_name='data-sci-final', mlflow=True)
 
 st.title(":red[Predictions]")
 
