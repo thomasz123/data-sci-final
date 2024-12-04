@@ -61,7 +61,7 @@ with tab1: #count plots
 with tab2: #box and whisker plots
     st.header("Box and Whisker Plots")
     fig, ax = plt.subplots(figsize=(10, 6))
-    sns.boxplot(x='Injury Severity', y='Speed Limit', data=datag)
+    sns.boxplot(x='Injury Severity', y='Speed Limit', data=df)
     plt.xticks(rotation=45, ha='right')  # Adjust rotation and horizontal alignment
     plt.tight_layout()  # Adjust layout to prevent clipping
     st.pyplot(fig)

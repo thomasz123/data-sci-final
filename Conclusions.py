@@ -4,7 +4,7 @@ st.title("Conclusions")
 st.markdown("Ensuring data quality is a fundamental step in any data science project, as it directly impacts the reliability of insights and conclusions. For our car crash dataset, we focused on evaluating and improving the accuracy, completeness, and consistency of the data to create comprehensible visualizations .")
 
 st.header("Data Quality")
-st.markdown("Large dataset, missing values, categorical data, and data only from one county")
+st.markdown("Large dataset, categorical data, and data only from one county")
 st.markdown("Less than 5% missing data means that most of the observations or records are complete, reducing the risk of losing important information.")
 
 st.header("Model Related Improvements")
