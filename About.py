@@ -43,6 +43,12 @@ with st.spinner('Loading page...'):
     st.markdown(":red[Minimum]: The lowest recorded value in each feature.")
     st.markdown(":red[Percentiles]: These values show the distribution of data.")
     st.markdown(":red[Maximum]: The highest recorded value for each feature.")
+    st.markdown("Reassigned Injury Severity Categories for Car Crash Data")
+    st.markdown(":red[0]: Fatal injury (death)")
+    st.markdown(":red[1]: No injury")
+    st.markdown(":red[2]: Possible injury")
+    st.markdown(":red[3]: Suspected minor injury")
+    st.markdown(":red[4]: Serious injury")
 
     st.markdown("### Missing Values")
     st.markdown("Null or NaN values.")

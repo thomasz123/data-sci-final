@@ -9,8 +9,8 @@ from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression
 from sklearn import metrics
 import matplotlib.pyplot as plt
-import folium 
-from streamlit_folium import st_folium
+# import folium 
+# from streamlit_folium import st_folium
 
 df = pd.read_csv("final_data_words.csv")
 datag=pd.read_csv("gedited2.csv")
@@ -62,12 +62,16 @@ with tab2: #box and whisker plots
     st.header("Box and Whisker Plots")
     fig, ax = plt.subplots(figsize=(10, 6))
     sns.boxplot(x='Injury Severity', y='Speed Limit', data=datag)
-    sns.boxplot(x='Injury severity cat', y='time (categorical)', data=datag)
     plt.xticks(rotation=45, ha='right')  # Adjust rotation and horizontal alignment
     plt.tight_layout()  # Adjust layout to prevent clipping
     st.pyplot(fig)
+    st.markdown("Injury severity as a function of speed limit")
+    fig1, ax = plt.subplots(figsize=(10, 6))
+    sns.boxplot(x='Injury severity cat', y='time (categorical)', data=datag)
+    st.pyplot(fig1)
+    st.markdown("Injury severity as a function of time")
+    
 
-    st.markdown("How does injury severity varry by time and speed limit")
 
 with tab3: #pie charts
     st.header('Pie Charts')
@@ -83,17 +87,21 @@ with tab3: #pie charts
     sizes = [54.74, 45.26]
     plt.pie(sizes,labels=labels)
     st.pyplot(fig)
-    st.markdown("")
+    st.markdown("...")
 
 with tab4: #map
     st.header('Map')
-    map_center = [df["Latitude"].mean(), df["Longitude"].mean()]
-    mymap = folium.Map(location = map_center, zoom_start = 8)
 
-    for index, row in df.iterrows():
-        if row['Latitude'] and row['Longitude']:
-            folium.Marker([row['Latitude'], row['Longitude']], popup = row['Report Number']).add_to(mymap)
+    image_path = Image.open("map.png") 
+    st.image(image_path)
 
-    st_map = st_folium(mymap, width = 700, height = 450)
+    # map_center = [df["Latitude"].mean(), df["Longitude"].mean()]
+    # mymap = folium.Map(location = map_center, zoom_start = 8)
+
+    # for index, row in df.iterrows():
+    #     if row['Latitude'] and row['Longitude']:
+    #         folium.Marker([row['Latitude'], row['Longitude']], popup = row['Report Number']).add_to(mymap)
+
+    # st_map = st_folium(mymap, width = 700, height = 450)
     st.markdown("This map shows the location of each of the accidents in our dataset.")
 
