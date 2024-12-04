@@ -15,5 +15,5 @@ st.markdown("This insight can inform targeted interventions like increased traff
 st.markdown("Accidents involving pedestrians or cyclists tend to result in more severe outcomes, underscoring the importance of dedicated infrastructure for non-motorized road users.")
 
 st.markdown("Proposed Solutions:")
-st.markdown("vis
+st.markdown("vis")
 st.markdown("-: Visualization: Develop intuitive dashboards or visualizations to communicate findings for people with no experience in data science")
