@@ -68,6 +68,8 @@ with tab2: #box and whisker plots
     st.markdown("Injury severity as a function of speed limit")
     fig1, ax = plt.subplots(figsize=(10, 6))
     sns.boxplot(x='Injury severity cat', y='time (categorical)', data=datag)
+    plt.xticks(rotation=45, ha='right')  # Adjust rotation and horizontal alignment
+    plt.tight_layout()  # Adjust layout to prevent clipping
     st.pyplot(fig1)
     st.markdown("Injury severity as a function of time")
     
