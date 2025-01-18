@@ -1,8 +1,8 @@
-# ⛅️ Weather Prediction
+# 🚗 Road Safety
 
-A simple app that can be utilized to predict the temperature in Paris. 
+A simple app that can be utilized to determine road safety. 
 
-[![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://parisweatherpredict.streamlit.app)
+[![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://data-sci-final.streamlit.app)
 
 ### How to run it on your own machine
 
